@@ -4,6 +4,7 @@ const Home = ()=>{
     const [data,setData] = useState([]);
     const [search,setSearch] = useState("")
     const [error,setError] = useState(false);
+    const [his,setHis] = useState([]);
     // useEffect(()=>{
     //     homeHandling();
     // },[])
@@ -28,6 +29,7 @@ const Home = ()=>{
                         return setError(true);
                     }
                     setError(false)
+                    setHis(...his,response.name)
                     setData(response)
                 } )
             .catch(err => console.error(err));
@@ -92,6 +94,42 @@ const Home = ()=>{
             )
             }
         }
+        const  functionHand=()=>{
+            if(his.length==0){
+                return(
+                    <p></p>
+                )
+            }
+            else if(his.length==1){
+                return(
+                    <div>
+                        <h3>last three entries</h3>
+                        <p>{his[0]}</p>
+                    </div>
+                )
+            }
+            else if(his.length==2){
+                return(
+                    <div>
+                    <h3>last three entries</h3>
+                    <div>{his[1]}</div>
+                    <div>{his[0]}</div>
+                    </div>
+                )
+            }
+            else if(his.length>=3){
+                return(
+                    <div>
+                         <h3>last three entries</h3>
+                    <div>{his[his.length-1]}</div>
+                    <div>{his[his.length-2]}</div>
+                    <div>{his[his.length-3]}</div>
+                   
+                    </div>
+                )
+            }
+           
+        }
    
     return(
         <div className='home_content'>
@@ -116,7 +154,8 @@ const Home = ()=>{
             :"Enter valid city name"} */}
             </div>
             {handling()}
-
+            
+           {functionHand()}
         </div>
     )
 }
